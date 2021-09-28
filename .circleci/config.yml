@@ -9,6 +9,6 @@ workflows:
   setup:
     jobs:
       - continuation/continue:
-          configuration_path: ./test.yml
+          configuration_path: ./.circleci/test.yml
       - continuation/continue:
-          configuration_path: ./build.yml
+          configuration_path: ./.circleci/build.yml
