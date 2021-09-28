@@ -16,6 +16,7 @@ jobs:
 
 workflows:
   test:
-    - build
-    - continuation/continue:
-        configuration_path: ./.circleci/build.yml
+    jobs:
+      - build
+      - continuation/continue:
+          configuration_path: ./.circleci/build.yml
