@@ -1,0 +1,12 @@
+version: '2.1'
+
+orbs:
+  continuation: circleci/continuation@1.2.3
+
+workflows:
+  setup:
+    jobs:
+      - continuation/continue:
+          configuration_path: ./test.yml
+      - continuation/continue:
+          configuration_path: ./build.yml
