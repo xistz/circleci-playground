@@ -6,4 +6,4 @@ jobs:
 
     steps:
       - checkout # check out the code in the project directory
-      - run: echo "test" # run the `echo` command
+      - run: echo "build" # run the `echo` command
