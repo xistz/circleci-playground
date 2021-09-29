@@ -1,12 +1,38 @@
 version: '2.1'
 
-setup: true
+parameters:
+  image_tag:
+    type: string
+    default: ''
 
-orbs:
-  continuation: circleci/continuation@0.2.0
+commands:
+  set-image-tag-env:
+    steps:
+      - checkout
+      - run: |
+          image_tag=<< pipeline.parameters.image_tag >>
+
+          if [[ -z $image_tag ]]; then
+            image_tag=$(git log -n 1 --format=format:"%H")
+          fi
+
+          echo 'export image_tag=$image_tag' >> $BASH_ENV
+          source $BASH_ENV
+
+jobs:
+  demo-env:
+    docker:
+      - image: cimg/base:2021.04
+    parameters:
+      image_tag:
+        type: string
+    steps:
+      - run: echo << parameters.image_tag >>
 
 workflows:
   setup:
     jobs:
-      - continuation/continue:
-          configuration_path: ./.circleci/test.yml
+      - demo-env:
+          pre-steps:
+            - set-image-tag-env
+          image_tag: $image_tag
