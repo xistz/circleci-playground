@@ -18,6 +18,7 @@ commands:
 
           echo 'export image_tag=$image_tag' >> $BASH_ENV
           source $BASH_ENV
+      - run: echo $image_tag
 
 jobs:
   demo-env:
