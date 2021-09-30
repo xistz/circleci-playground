@@ -1,39 +1,21 @@
 version: '2.1'
 
 parameters:
-  image_tag:
-    type: string
-    default: ''
-
-commands:
-  set-image-tag-env:
-    steps:
-      - checkout
-      - run: |
-          image_tag=<< pipeline.parameters.image_tag >>
-
-          if [[ -z $image_tag ]]; then
-            image_tag=$(git log -n 1 --format=format:"%H")
-          fi
-
-          echo 'export image_tag=$image_tag' >> $BASH_ENV
-          source $BASH_ENV
-      - run: echo $image_tag
+  deploy:
+    type: boolean
+    default: false
 
 jobs:
   demo-env:
     docker:
       - image: cimg/base:2021.04
-    parameters:
-      image_tag:
-        type: string
     steps:
+      - checkout
+      - run: echo << pipeline.git.branch >>
       - run: echo << parameters.image_tag >>
 
 workflows:
   setup:
+    when: << pipeline.parameters. >>
     jobs:
-      - demo-env:
-          pre-steps:
-            - set-image-tag-env
-          image_tag: $image_tag
+      - demo
