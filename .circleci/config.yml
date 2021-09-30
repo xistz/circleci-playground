@@ -6,13 +6,13 @@ parameters:
     default: false
 
 jobs:
-  demo-env:
+  demo:
     docker:
       - image: cimg/base:2021.04
     steps:
       - checkout
       - run: echo << pipeline.git.branch >>
-      - run: echo << parameters.image_tag >>
+      - run: cat file.txt
 
 workflows:
   setup:
