@@ -16,6 +16,6 @@ jobs:
 
 workflows:
   setup:
-    when: << pipeline.parameters. >>
+    when: << pipeline.parameters.deploy >>
     jobs:
       - demo
